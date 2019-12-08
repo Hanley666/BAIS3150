@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 
 namespace AbcHardware.TechnicalServices
 {
-    public class Sales
+    public class ItemManager
     {
         private readonly string _connectionString;
 
-        public Sales(string connectionString)
+        public ItemManager(string connectionString)
         {
             _connectionString = connectionString;
         }
 
-
+        public void CreateItem()
     }
 }

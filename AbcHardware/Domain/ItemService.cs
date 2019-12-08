@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace AbcHardware.Domain
 {
-    public class InventoryItemService
+    public class ItemService
     {
         private readonly string _connectionString;
-        public InventoryItemService(IConfiguration config)
+        public ItemService(IConfiguration config)
         {
             _connectionString = config.GetConnectionString("Home");
         }
