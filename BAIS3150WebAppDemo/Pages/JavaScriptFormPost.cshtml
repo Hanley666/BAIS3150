@@ -1,0 +1,48 @@
+﻿@page
+@model BAIS3150WebAppDemo.Pages.JavaScriptFormPostModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>JavaScript Form Post</title>
+    <script type="text/javascript">
+        function ValidateViaButton(aForm)
+        {
+            alert('Button');
+            //if valid, call submit()
+            aForm.submit();
+        }
+        function ValidateViaSubmit()
+        {
+            alert('onSubmit');
+            //if valid, return true, otherwise return false
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <form name="SampleForm" method="post" onsubmit="return ValidateViaSubmit();" action="~/TestPost">
+        <table>
+            <tr>
+                <td>Input Field:</td>
+                <td>
+                    <input type="text" name="InputField" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" name="SubmitButton" id="SubmitButton" value="submit" />
+                </td>
+                <td>
+                    <input type="button" name="Button" id="Button" value="Click" onclick="ValidateViaButton(window.document.SampleForm);" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

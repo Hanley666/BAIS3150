@@ -1,0 +1,34 @@
+﻿@page
+@model BAIS3150WebAppDemo.Pages.DemonstrationCategoriesModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DemonstrationCategories</title>
+</head>
+<body>
+    <form name="NorthwindDemoForm" id="NorthwindDemoForm">
+        <table>
+            <tr>
+                <th>Category Name</th>
+                <th>Description</th>
+                <th>Picture</th>
+            </tr>
+            @foreach(var Category in Model.CategoryList)
+            {
+                <tr>
+                    <td>@Category.CategoryName</td>
+                    <td>@Category.Description</td>
+                    <td>@Category.Picture</td>
+                </tr>
+            }
+        </table>
+
+    </form>
+</body>
+</html>

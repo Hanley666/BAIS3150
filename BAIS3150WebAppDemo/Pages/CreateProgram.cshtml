@@ -1,0 +1,46 @@
+﻿@page
+@model BAIS3150WebAppDemo.Pages.CreateProgramModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateProgram</title>
+
+</head>
+
+<body>
+    <main>
+        <h1>Create Program</h1>
+        <form name="CreateStudentForm" method="post" id="CreateStudentForm">
+            <table>
+                <tr>
+                    <td><label for="ProgramCodeTextBoxId"></label>Program Code:</td>
+                    <td>
+                        <input type="text" name="ProgramCode" id="ProgramCodeTextBoxId"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="DescriptionTextBoxId"></label>Program Description:</td>
+                    <td>
+                        <input type="text" name="Description" id="DescriptionTextBoxId" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" name="Submit" id="SubmitButton" value="Submit" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </main>
+    <footer>
+        @Model.Message
+    </footer>
+</body>
+
+</html>

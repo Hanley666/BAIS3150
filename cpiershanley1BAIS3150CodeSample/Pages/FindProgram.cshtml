@@ -1,0 +1,62 @@
+﻿@page
+@model cpiershanley1BAIS3150CodeSample.Pages.FindProgramModel
+@{
+    ViewData["Title"] = "FindProgram";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+</head>
+
+<body>
+    <h2>@ViewBag.Title</h2>
+
+    <form name="FindProgramForm" method="post" id="FindProgramForm">
+        <input type="text" name="SearchBox" id="SearchBox" />
+        <input type="submit" name="SearchButton" id="SearchButton" /><br /><br />
+        <p>@Model.Message</p>
+        <table>
+            <tr>
+                <td>Program Code:</td>
+                <td>
+                    <input type="text" name="ProgramCode" id="ProgramCode" value="@Model.ProgramCode" readonly />
+                </td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td>
+                    <input type="text" name="Description" id="Description" value="@Model.Description" size="45" readonly />
+                </td>
+            </tr>
+        </table><br /><br />
+
+        <h4>Enrolled Students</h4>
+        <table>
+            <tr>
+                <td>Student Id</td>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Email</td>
+
+            </tr>
+            @foreach (var student in Model.EnrolledStudents)
+            {
+                <tr>
+                    <td>@student.StudentId</td>
+                    <td>@student.FirstName</td>
+                    <td>@student.LastName</td>
+                    <td>@student.Email</td>
+
+                </tr>
+            }
+        </table>
+        @Html.ValidationSummary();
+    </form>
+</body>
+</html>
+

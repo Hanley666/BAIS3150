@@ -1,0 +1,44 @@
+﻿@page
+@{
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>TestPost</title>
+</head>
+<body>
+    <h1>TestPost - Values passed from POST</h1>
+    <table border="1">
+        @if (Request.HasFormContentType)
+        {
+            <tr>
+                <td colspan="2" align="center"><h2>Request Headers</h2></td>
+            </tr>
+            @foreach (var Header in Request.Headers)
+            {
+                <tr>
+                    <td align="right"><strong>@Header.Key:</strong></td>
+                    <td>@Header.Value</td>
+                </tr>
+            }
+            <tr>
+                <td colspan="2" align="center"><h2>Form Items</h2></td>
+            </tr>
+            @foreach (var FormItem in Request.Form)
+            {
+                <tr>
+                    <td align="right"><strong>@FormItem.Key:</strong></td>
+                    <td>@FormItem.Value</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td>*** No Form ***</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

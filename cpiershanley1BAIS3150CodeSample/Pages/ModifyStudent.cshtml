@@ -1,0 +1,68 @@
+﻿@page
+@model cpiershanley1BAIS3150CodeSample.Pages.ModifyStudentModel
+@{
+    ViewData["Title"] = "ModifyStudent";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+</head>
+
+<body>
+    <h2>@ViewBag.Title</h2>
+
+    <form asp-page-handler="SearchStudent" name="FindProgramForm" method="post" id="FindProgramForm">
+        <input type="text" name="SearchBox" id="SearchBox" />
+        <input type="submit" runat="server" name="SearchButton" id="SearchButton" value="Search" /><br /><br />
+    </form>
+    <form asp-page-handler="ModifyStudent" name="Modify Student">
+        <table>
+            <tr>
+                <td>Student Id:</td>
+                <td>
+                    <input type="text" name="StudentId" id="StudentId" value="@Model.studentId" readonly />
+                </td>
+            </tr>
+            <tr>
+                <td>First Name:</td>
+                <td>
+                    <input type="text" name="FirstName" id="FirstName" value="@Model.firstName" />
+                </td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td>
+                    <input type="text" name="LastName" id="LastName" value="@Model.lastName" />
+                </td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>
+                    <input type="text" name="Email" id="Email" value="@Model.email" />
+                </td>
+            </tr>
+            <tr>
+                <td>Program:</td>
+                <td>
+                    <select name="ProgramList" id="ProgramCodeDropDownList" size="1">
+                        <option>Make A Selection..</option>
+                        @foreach (var program in Model.ProgramList)
+                        {
+                            <option>@program.ProgramCode</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+        </table><br /><br />
+        <input type="submit" name="SaveButton" id="SaveButton" value="Save" />
+    </form><br />
+    @Model.Message
+    @Html.ValidationSummary();
+</body>
+</html>
+

@@ -1,0 +1,15 @@
+﻿@page
+@model cpiershanley1BAIS3150CodeSample.Pages.GetDatabaseUserModel
+@{
+    ViewData["Title"] = "Get Database User";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Model.CurrentDatabaseUser.CurrentUser
+<br />
+@Model.CurrentDatabaseUser.SystemUser
+<br />
+@Model.CurrentDatabaseUser.SessionUser
+
+@Html.ValidationSummary();

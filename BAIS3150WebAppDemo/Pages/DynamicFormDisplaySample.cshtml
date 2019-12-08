@@ -1,0 +1,46 @@
+﻿@page
+@model BAIS3150WebAppDemo.Pages.DynamicFormDisplaySampleModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Dynamic Display Sample</title>
+</head>
+<body>
+    <h1>Dynamic Form Display Sample</h1>
+    <form name="SampleForm" id="SampleFormId" method="post">
+        <table>
+            <tr>
+                <td>Field 1:</td>
+                <td>
+                    <input type="text" name="Field1TextBox" id="Field1TextBoxId" value="@Model.Field1TextBoxId"/>
+                </td>
+            </tr>
+            <tr>
+                <td>List 1:</td>
+                <td>
+                    <select name="List1" id="List1Id" size="3">
+                        @foreach (var SampleObject in Model.SampleObjectCollection)
+                        {
+                            <option value="@SampleObject.FirstProperty">@SampleObject.SecondProperty</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" name="SubmitButton" id="SubmitButtonId" value="Submit" />
+                </td>
+            </tr>
+            <tr>
+                <td>@Model.Message</td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

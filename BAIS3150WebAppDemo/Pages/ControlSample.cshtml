@@ -1,0 +1,131 @@
+﻿@page
+@model BAIS3150WebAppDemo.Pages.ControlSampleModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Razor Test Page</title>
+    <script type="text/javascript"></script>
+</head>
+<body>
+    <header>Header Area</header>
+    <nav>Navigation Area</nav>
+    <main>
+        Main Content Area
+        <form name="ControlSampleForm" id="ControlSampleFormId" method="post">
+            <table>
+                <tr>
+                    <td>Text Box:</td>
+                    <td>
+                        <input type="text" name="ATextBox" id="ATextBoxId" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>CheckBox:</td>
+                    <td>
+                        <input type="checkbox" name="CheckBoxItem1" id="CheckBoxItem1Id" value="Yes" />Item1<br />
+                        <input type="checkbox" name="CheckBoxItem2" id="CheckBoxItem2Id" value="Yes" />Item2<br />
+                        <input type="checkbox" name="CheckBoxItem3" id="CheckBoxItem3Id" value="Yes" />Item3<br />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Radio Buttons:</td>
+                    <td>
+                        <input type="radio" name="RadioButton" id="RadioButtonId" value="Yes" />Item 1<br />
+                        <input type="radio" name="RadioButton" id="RadioButtonId" value="Yes" />Item 2<br />
+                        <input type="radio" name="RadioButton" id="RadioButtonId" value="Yes" />Item 3<br />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Hidden Field:</td>
+                    <td>
+                        <input type="hidden" name="AHiddenField" id="HiddenFieldId" value="This is Hidden" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Read Only Field:</td>
+                    <td>
+                        <input type="text" name="ReadOnlyTextField" id="ReadOnlyFieldId" value="Read Only" readonly="readonly" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Password Field:</td>
+                    <td>
+                        <input type="password" name="PasswordField" id="PasswordFieldId" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Scrolling TextBox</td>
+                    <td>
+                        <textarea name="TextArea" id="TextAreaId" cols="20" rows="3"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Select Element: DropDownList</td>
+                    <td>
+                        <select name="DropDownList" id="DropDownListId" size="1">
+                            <option>Make A Selection..</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Select Element: List</td>
+                    <td>
+                        <select name="DifferentSelectElement" id="DifferentSelectElementId" size="3">
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Label:</td>
+                    <td>
+                        <label>Hello World</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>
+                            TextBox2 Control Label:
+                            <input type="text" name="TextBox2" id="TextBox2Id" />
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="TextBox3Id">TextBox3 Control Label</label>
+                    </td>
+                    <td>
+                        <input type="text" name="TextBox3" id="TextBox3Id" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Field Element/ Legend Element:</td>
+                    <td>
+                        <fieldset name="FieldSet1" id="FieldSet1Id">
+                            <legend>Legend</legend>
+                            <label>Group Item 1:<input type="text" name="GroupItem1" id="GroupItem1Id"/></label><br/><br/>
+                            <label>Group Item 2:<input type="text" name="GroupItem2" id="GroupItem2Id"/></label><br/><br/>
+                            <label>Group Item 3:<input type="text" name="GroupItem3" id="GroupItem3Id"/></label>
+                        </fieldset>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+    </main>
+    <footer>
+        Footer Area
+    </footer>
+</body>
+</html>

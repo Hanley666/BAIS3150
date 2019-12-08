@@ -1,0 +1,119 @@
+﻿@page
+@model BAIS3150WebAppDemo.Pages.JavaScriptExercisePageModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>JavaScriptExercisePage</title>
+    <script type="text/javascript">
+        function Validation()
+        {
+            var returnValue = true;      
+        
+            //Name Required
+            var name = document.getElementById("NameTextBox").value;
+            if (name.trim() == "") {
+                alert('Error: Name Required.');
+                name.focus;
+                returnValue = false;
+            }
+
+            //EMail Format
+            var email = document.getElementById("EmailTextBox").value;
+            if (email.trim() == "") {
+                alert('Error: Email Required.');
+                returnValue = false;
+            }
+            if (!/^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+               alert("Error: Email Format Incorrect");
+                returnValue = false;
+            }
+            
+
+            //Number Check
+            var cardNumber = document.getElementById("CardTextBox").value;
+            var length = cardNumber.length;
+            var lengthValid;
+
+            if (cardNumber.trim() == "") {
+                alert('Error: Credit Card Required.');
+                returnValue = false;
+            }
+            for (var index = 0; (index < length) && lengthValid; index++)
+            {
+                var aCharacter = cardNumber.charAt(index);
+                if (aCharacter < '0' || aCharacter > '9') {
+
+                    alert("Error: Credit Card Must consist of Numbers");
+                    returnValue = false
+                }
+            }
+            if (length >= 10 && length <= 15) {
+                lengthValid = true;
+            }
+            else {
+                alert("Credit Card must be between 10 and 15 digits");
+            }
+
+            var expiryDate = document.getElementById("ExpiryTextBox").value
+            var regEx = new RegExp(/^(0[1-9]|10|11|12)\/20[0-9]{2}$/);
+            if (!/^(0[1-9]|10|11|12)\/20[0-9]{2}$/.test(expiryDate)) {
+                alert("Expiry Date Must Be in MM/YYYY Format");
+                returnValue = false;
+            }        
+            return returnValue;
+        }
+    </script>
+</head>
+<body>
+    <form name="JavascriptExerciseForm" onsubmit="Validation();">
+        <table>
+            <tr>
+                <td><label for="NameTextBox">Name:</label></td>
+                <td>
+                    <input type="text" name="NameTextBox" id="NameTextBox"/>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="EmailTextBox">E-Mail Address:</label></td>
+                <td>
+                    <input type="text" name="EmailTextBox" id="EmailTextBox"/>
+                </td>
+            </tr>
+            <tr>
+            <tr>
+                <td><label for="CardTextBox">Credit Card:</label></td>
+                <td>
+                    <input type="text" name="CardTextBox" id="CardTextBox"/>
+                </td>
+            </tr>
+            <tr>
+            <td><label>Expiry Date:</label></td>
+            <td>
+                <input type="text" name="ExpiryTextBox" id="ExpiryTextBox"/>
+            </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="radio" name="PaymentRadioButton" id="RadioButtonId" value="Yes" checked="checked" />Visa<br />
+                    <input type="radio" name="PaymentRadioButton" id="RadioButtonId" value="Yes" />Master Card<br />
+                    <input type="radio" name="PaymentRadioButton" id="RadioButtonId" value="Yes" />American Express<br />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" name="SubmitButton" value="Submit" />
+                    <input type="button" name="ResetButton" value="Reset" onclick="" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

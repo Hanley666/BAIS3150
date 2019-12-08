@@ -1,0 +1,39 @@
+﻿@page
+@model BAIS3150WebAppDemo.Pages.UpdateProgramModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UpdateProgram</title>
+</head>
+<body>
+    <h1>Create Student</h1>
+    <form name="TestPageForm" method="post" id="TestPageForm">
+        <table>
+            <tr>
+                <td><label for="ProgramCodeTextBox"></label>Program Code:</td>
+                <td>
+                    <input type="text" name="ProgramCode" id="ProgramCodeTextBox" readonly="readonly" value="@Model.ProgramCode"/>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="DescriptionTextBox"></label>Description:</td>
+                <td>
+                    <input type="text" name="Description" id="DescriptionTextBox" value="@Model.Description"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" name="Submit" id="SubmitButton" value="Update" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <footer>@Model.Message</footer>
+</body>
+</html>

@@ -1,0 +1,56 @@
+﻿@page
+@model BAIS3150WebAppDemo.Pages.JavaScriptExampleModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>JavaScript Example</title>
+    <script type="text/javascript"> 
+        function IsNumeric(aValue)
+        {
+            var length = aValue.length;
+            var index = 0;
+            var isValid = length > 0;
+
+            for (index = 0; (index < length) && isValid; index++)
+            {
+                var aCharacter = aValue.charAt(index);
+                if (aCharacter < '0' || aCharacter > '9')
+                {
+                    isValid = false;
+                }
+            }
+            return IsValid;
+        }
+        function AddOneToField(aField)
+        {
+            if (IsNumeric(aField.value))
+            {
+                aField.value = parseInt(aField.value) + 1
+            }
+            else
+            {
+                alert('Field Value Must Be Numeric');
+                aField.focus();
+                aField.select();
+            }
+        }
+    </script>
+</head>
+<body>
+    <form name="SampleForm">
+        <p>
+            Click This
+            <!--window.document.forms['SampleForm'].elements[IncrementField]-->
+            <input type="button" value="Button" onclick="AddOneToField(window.document.SampleForm.IncrementField);"/>
+            to Increment this
+            <input type="text" name="IncrementField" size="3" value="0" />
+        </p>
+    </form>
+</body>
+</html>

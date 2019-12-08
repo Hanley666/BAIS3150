@@ -1,0 +1,60 @@
+﻿@page
+@model BAIS3150WebAppDemo.Pages.NewStudentModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>NewStudent</title>
+</head>
+<body>
+    <form name="NewStudentForm" method="post">
+        <h1>New Student</h1>
+        <table>
+            <tr>
+                <td><label for="FirstName">First Name:</label></td>
+                <td><input type="text" name="FirstName" id="FirstName" /></td>
+            </tr>
+            <tr>
+                <td><label for="LastName">Last Name:</label></td>
+                <td><input type="text" name="LastName" id="LastName" /></td>
+            </tr>
+            <tr>
+                <td><label for="Email">Email:</label></td>
+                <td><input type="text" name="Email" id="Email" /></td>
+            </tr>
+            <tr>
+                <td><label for="ProgramDropDownList">Program:</label></td>
+                <td>
+                    <select name="ProgramDropDownList" id="ProgramDropDownList" size="1">
+                        <option>Make A Selection..</option>
+                        <option value="BAIST">Bachelor of Applied Information Systems Technology</option>
+                        <option value="BUS">Business Administration Technology</option>
+                        <option value="PHT">Photographic Technology</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="UserId">User Id:</label></td>
+                <td><input type="text" name="UserId" id="UserId" /></td>
+            </tr>
+            <tr>
+                <td><label for="Password">Password:</label></td>
+                <td><input type="text" name="Password" id="Password" /></td>
+            </tr>
+            <tr>
+                <td><label for="PasswordConfirm">Confirm Password:</label></td>
+                <td><input type="text" name="PasswordConfirm" id="PasswordConfirm" /></td>
+            </tr>
+            <tr>
+                <td><input type="submit" name="SubmitButton" id="SubmitButton" /></td>
+            </tr>
+            @Html.ValidationSummary();
+        </table>
+    </form>
+</body>
+</html>

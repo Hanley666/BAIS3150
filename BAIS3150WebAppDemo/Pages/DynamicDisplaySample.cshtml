@@ -1,0 +1,30 @@
+﻿@page
+@model BAIS3150WebAppDemo.Pages.DynamicDisplaySampleModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Dynamic Display Sample</title>
+</head>
+<body>
+    <h1>Dynamic Display Sample</h1>
+    <table>
+        <tr>
+            <td>Digit</td>
+            <td>Number</td>
+        </tr>
+        @foreach (var SampleObject in Model.SampleObjectCollection)
+        {
+            <tr>
+                <td>@SampleObject.FirstProperty</td>
+                <td>@SampleObject.SecondProperty</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

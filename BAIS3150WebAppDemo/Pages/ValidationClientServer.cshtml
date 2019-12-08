@@ -1,0 +1,51 @@
+﻿@page
+@model BAIS3150WebAppDemo.Pages.ValidationClientServerModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Validation Client Server</title>
+    <script type="text/javascript">
+        function IsFormValid()
+        {
+            var isValid = false;
+            var aValue = document.getElementById('InputField').value;
+            var length = aValue.length;
+
+            if (length > 0 && length <= 5) {
+                isValid = true;
+            }
+                
+            else {
+                alert('InputField is required and can contain up to 5 characters.')
+            }
+            return isValid;
+        }
+    </script>
+</head>
+<body>
+    <form name="SampleForm" method="post" onsubmit="return true// IsFormValid(document.getElementsByName('SampleForm'))">
+        <table>
+            <tr>
+                <td>Input Field:</td>
+                <td>
+                    <input type="text" name="InputField" id="InputField" />
+                    @Html.ValidationMessage("InputField");
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" name="SubmitButton" id="SubmitButton" value="Submit" />
+                </td>
+            </tr>
+        </table>
+        @Model.Message
+        @Html.ValidationSummary()
+    </form>
+</body>
+</html>

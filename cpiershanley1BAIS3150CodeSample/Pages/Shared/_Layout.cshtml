@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+</head>
+<body>
+    <header>
+    </header>
+    <nav>
+        <div class="navbar">
+            <a class="active" href="~/Index">Home</a>
+            <div class="dropdown">
+                <button class="nav-dropdown-btn">
+                    Program
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="~/CreateProgram">Create</a>
+                    <a href="~/FindProgram">Find</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="nav-dropdown-btn">
+                    Student
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="~/EnrollStudent">Enroll</a>
+                    <a href="~/FindStudent">Find</a>
+                    <a href="~/ModifyStudent">Modify</a>
+                    <a href="~/RemoveStudent">Remove</a>
+                </div>
+            </div>
+            <a class="active" href="~/GetDatabaseUser">DataBaseUser</a>
+        </div>
+    </nav>
+    <content>
+        <div>
+            @RenderBody()
+        </div>
+    </content>
+    @if (IsSectionDefined("Footer"))
+    {
+        @RenderSection("Footer")
+    }
+    else
+    {
+        <footer>
+        </footer>
+    }
+
+</body>
+</html>

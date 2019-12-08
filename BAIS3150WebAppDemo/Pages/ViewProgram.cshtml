@@ -1,0 +1,32 @@
+﻿@page
+@model BAIS3150WebAppDemo.Pages.ViewProgramModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ViewProgram</title>
+</head>
+<body>
+    <h1>View Program</h1>
+    <table>
+        <tr>
+            <td><b>Program Code</b></td>
+            <td><b>Description</b></td>
+        </tr>
+        @foreach (var Program in Model.ProgramList)
+        {
+            <tr>
+                <td>@Program.ProgramCode</td>
+                <td>@Program.Description</td>
+                <td><a href="~/UpdateProgram?ProgramCode=@Program.ProgramCode">Update</a></td>
+                <td><a href="~/DeleteProgram?ProgramCode=@Program.ProgramCode">Delete</a></td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

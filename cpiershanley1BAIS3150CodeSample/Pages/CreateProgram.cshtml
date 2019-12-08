@@ -1,0 +1,54 @@
+﻿@page
+@model cpiershanley1BAIS3150CodeSample.Pages.CreateProgramModel
+@{
+    ViewData["Title"] = "Create Program";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+
+<body>
+    <h2>@ViewBag.Title</h2>
+   
+    <form name="CreateStudentForm" method="post" id="CreateStudentForm">
+        <table>
+            <tr>
+                <td><label for="ProgramCodeTextBoxId"></label>Program Code:</td>
+                <td>
+                    <input type="text" name="ProgramCode" id="ProgramCodeTextBoxId" />
+                </td>
+            </tr>
+            <tr>
+                <td><label for="DescriptionTextBoxId"></label>Program Description:</td>
+                <td>
+                    <input type="text" name="Description" id="DescriptionTextBoxId" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" name="Submit" id="SubmitButton" value="Submit" />
+                </td>
+            </tr>
+        </table>
+        @if (TempData.Keys.Contains("Success"))
+        {
+            <div>@Html.Raw(TempData["Success"])</div>
+        }
+        @if (TempData.Keys.Contains("Failed"))
+        {
+            <div>@Html.Raw(TempData["Failed"])</div>
+        }
+    </form>
+    @section Footer
+    {
+        <footer>
+        </footer>
+    }
+</body>
+
+</html>

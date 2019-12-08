@@ -1,0 +1,28 @@
+﻿@page
+@model BAIS3150WebAppDemo.Pages.ValidationDataAnnotationAttributesModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Validation - Data Annotation Attributes</title>
+    <!--
+    <script src="~/Libraries/jquery/jquery.js"></script>
+    <script src="~/Libraries/jquery-validate/jquery.validate.js"></script>
+    <script src="~/Libraries/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    -->
+</head>
+<body>
+    <form name="ValidationForm" method="post" id="ValidationForm">
+        <label>Test TextBox:</label>
+        <input asp-for="Field" type="text" name="Field" id="Field" />
+        <span asp-validation-for="Field" ></span><br />
+        <input type="submit" name="submit" id="SubmitButton" value="Submit" />
+    </form>
+    <footer>@Model.Message</footer>
+</body>
+</html>

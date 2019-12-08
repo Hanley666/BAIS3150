@@ -1,0 +1,60 @@
+﻿@page "{handler?}"
+@model TestPageModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Razor Test Page</title>
+    <script type="text/javascript"></script>
+</head>
+<body>
+    <header>Header Area</header>
+    <nav>Navigation Area</nav>
+    <main>
+        Main Content Area
+        <form asp-page-handler="FirstAction" name="TestPageForm" method="post" id="TestPageForm">
+            <table>
+                <tr>
+                    <td>Field:</td>
+                    <td>
+                        <input type="text" name="Field1" id="Field1" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" name="Submit1" id="Submit1" value="Submit" />
+                    </td>
+                </tr>
+            </table>
+
+        </form>
+
+        Division Area
+        <form asp-page-handler="SecondAction"name="TestPageForm" method="post" id="TestPageForm">
+            <table>
+                <tr>
+                    <td>Field:</td>
+                    <td>
+                        <input type="text" name="Field2" id="Field2" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" name="Submit2" id="Submit2" value="Submit" />
+                    </td>
+                </tr>
+            </table>
+
+        </form>
+        
+    </main>
+    <footer>
+        Footer Area: @Model.Message
+    </footer>
+</body>
+</html>

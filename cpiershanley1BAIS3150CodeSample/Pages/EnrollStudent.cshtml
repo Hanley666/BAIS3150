@@ -1,0 +1,67 @@
+﻿@page
+@model cpiershanley1BAIS3150CodeSample.Pages.EnrollStudentModel
+@{
+    ViewData["Title"] = "Enroll Student";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <main>
+        <h1>@ViewBag.Title</h1>
+        <form name="TestPageForm" method="post" id="TestPageForm">
+            <table>
+                <tr>
+                    <td><label for="StudentIdTextBox"></label>Student Id:</td>
+                    <td>
+                        <input type="text" name="StudentId" id="StudentIdTextBox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="FirstNameTextBox"></label>First Name:</td>
+                    <td>
+                        <input type="text" name="FirstName" id="FirstNameTextBox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="LastNameTextBox"></label>Last Name:</td>
+                    <td>
+                        <input type="text" name="LastName" id="LastNameTextBox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="EmailTextBox"></label>Email:</td>
+                    <td>
+                        <input type="text" name="Email" id="EmailTextBox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Program:</td>
+                    <td>
+                        <select name="ProgramList" id="ProgramCodeDropDownList" size="1">
+                            <option>Make A Selection..</option>
+                            @foreach (var program in Model.ProgramList)
+                            {
+                                <option>@program.ProgramCode</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" name="Submit" id="SubmitButton" value="Submit" />
+                    </td>
+                </tr>
+            </table>
+            @Html.ValidationSummary();
+        </form>
+    </main>
+    <footer>@Model.Message</footer>
+</body>
+</html>
+
