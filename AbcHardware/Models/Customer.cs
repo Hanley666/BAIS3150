@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -8,11 +9,12 @@ namespace AbcHardware.Models
 {
     public class Customer
     {
-        private string _postalCode;
         public int CustomerId { get; set; }
 
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         public string Address { get; set; }
@@ -21,30 +23,13 @@ namespace AbcHardware.Models
 
         public string Province { get; set; }
 
-        public string PostalCode
-        {
-            get { return _postalCode; }
-            set
-            {
-                _postalCode = FormatPostalCode(value);
-            }
-        }
-
+        public string PostalCode { get; set; }
 
         public string FullName
         {
-            get { return FirstName + "" + LastName; }
+            get { return FirstName + " " + LastName; }
         }
 
-        private string FormatPostalCode(string postalCode)
-        {
-            Regex regex = new Regex(@"^(?![DFIOQU])(([ABCEGHJ-NPRSTVXY]\d[A-Z]) ?(\d[A-Z]\d))$");
-            Match match = regex.Match(postalCode);
-
-            if (match.Success)
-                return $"{match.Groups[2].Value} {match.Groups[3].Value}";
-
-            return null;
-        }
+        
     }
 }

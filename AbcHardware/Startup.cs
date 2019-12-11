@@ -31,6 +31,8 @@ namespace AbcHardware
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddTransient<CustomerService>();
+            services.AddTransient<ItemService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

@@ -20,5 +20,7 @@ namespace AbcHardware.Models
         }
 
         public string SalePerson { get; set; }
+
+        public List<SaleItem> saleItems { get; set; }
     }
 }

@@ -12,26 +12,17 @@ body {
     padding-right: 15px;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+.table-scroll-y {
+    display: block;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+.custom-scrollbar-Delete {
+    position: relative;
+    height: 500px;
+    overflow: auto;
 }
-
-/* QR code generator */
-#qrCode {
-    margin: 15px;
-}
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
+.custom-scrollbar-Update {
+    position: relative;
+    height: 300px;
+    overflow: auto;
 }

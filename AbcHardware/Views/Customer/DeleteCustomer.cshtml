@@ -1,0 +1,89 @@
+﻿@model AbcHardware.Models.Customer
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+<h3>Customer</h3>
+
+@if (TempData.Keys.Contains("Success"))
+{
+    <div class="alert alert-success">@Html.Raw(@TempData["Success"])</div>
+}
+<div class="alert-danger">@Html.ValidationMessage("DeleteCustomer")</div>
+
+<form class="form-inline">
+    <div class="row">
+        <div class="col-md-5">
+            <input class="form-control" type="text" placeholder="Customer Name" name="searchString" />
+            <input class="btn btn-default" type="submit" value="Filter" />
+            @Html.ActionLink("Show All Customers", "DeleteCustomer", new { /* id=item.PrimaryKey */ })
+        </div>
+    </div>
+</form>
+
+<form asp-action="DeleteCustomer">
+    <div class="table-scroll-y custom-scrollbar-Delete">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.City)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Province)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PostalCode)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Customers)
+                {
+                    <tr>
+                        <td>
+                            @item.FullName
+                        </td>
+                        <td>
+                            @item.Address
+                        </td>
+                        <td>
+                            @item.City
+                        </td>
+                        <td>
+                            @item.Province
+                        </td>
+                        <td>
+                            @item.PostalCode
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="button" value="Delete" class="btn-link" onclick="submitForm(@item.CustomerId)" />
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <input type="hidden" id="id" name="id" />
+</form>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var submitForm = function (id) {
+            $("#id").val(id);
+            document.forms[1].submit();
+        }
+    </script>
+}

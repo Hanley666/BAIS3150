@@ -1,28 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using AbcHardware.Domain;
+using AbcHardware.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AbcHardware.Controllers
 {
     public class CustomerController : Controller
     {
-        // GET: Customer
-        public ActionResult Index()
-        {
-            return View();
-        }
+        private readonly CustomerService _customerService;
 
-        // GET: Customer/Details/5
-        public ActionResult Details(int id)
+        public CustomerController(CustomerService customerService)
         {
-            return View();
+            _customerService = customerService;
         }
 
         // GET: Customer/Create
-        public ActionResult Create()
+        public ActionResult AddCustomer()
         {
             return View();
         }
@@ -30,64 +26,120 @@ namespace AbcHardware.Controllers
         // POST: Customer/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult AddCustomer(Customer customer)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
+                var errorsList = _customerService.CreateCustomer(customer);
+                if(errorsList == null)
+                {
+                    TempData["Success"] = "Customer Create Successful";
+                    return View();
+                }
+                foreach(var error in errorsList)
+                {
+                    ModelState.AddModelError(error.Key, error.Value);
+                }                              
             }
             catch
             {
-                return View();
+                ModelState.AddModelError("CreateCustomer", "Create Customer Failed");
             }
+            return View(customer);
         }
 
         // GET: Customer/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult UpdateCustomer(string searchString, int? id)
         {
-            return View();
+            if (id.HasValue)
+            {
+                ViewBag.Customers = FilterCustomers(searchString);
+                var customer = GetCustomerById(id.Value);
+                return View(customer);
+            }
+            else
+            {
+                ViewBag.Customers = FilterCustomers(searchString);
+                return View();
+            }
         }
 
         // POST: Customer/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult UpdateCustomer(Customer model)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
+                var errorsList = _customerService.UpdateCustomer(model);
+                if(errorsList == null)
+                {
+                    ViewBag.Customers = _customerService.GetCustomers();
+                    TempData["Success"] = "Customer Update Successful";
+                    return View();
+                }
+                foreach (var error in errorsList)
+                {
+                    ModelState.AddModelError(error.Key, error.Value);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("UpdateCustomer", "Update Customer Failed");
             }
+            ViewBag.Customers = _customerService.GetCustomers();
+            return View(model);
         }
 
         // GET: Customer/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteCustomer(string searchString)
         {
+            ViewBag.Customers = FilterCustomers(searchString);
+            
             return View();
         }
 
         // POST: Customer/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeleteCustomer(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                var errorsList = _customerService.DeleteCustomer(id);
+                if(errorsList == null)
+                {
+                    ViewBag.Customers = _customerService.GetCustomers();
+                    TempData["Success"] = "Customer Delete Successful";
+                    return View();
+                }
+                foreach (var error in errorsList)
+                {
+                    ModelState.AddModelError(error.Key, error.Value);
+                }
 
-                return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                ModelState.AddModelError("DeleteCustomer", "Delete Customer Failed");
             }
+            return View();
+        }
+
+        private Customer GetCustomerById(int customerId)
+        {
+            return _customerService.GetCustomerById(customerId);
+        }
+
+        private List<Customer> FilterCustomers(string searchString)
+        {
+            var customers = _customerService.GetCustomers();
+
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                customers = customers.Where(c => c.FullName.Contains(searchString, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            }
+            return customers;
         }
     }
 }

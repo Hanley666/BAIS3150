@@ -31,8 +31,28 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            Customer
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Customer" asp-action="AddCustomer">Create</a></li>
+                            <li><a asp-area="" asp-controller="Customer" asp-action="UpdateCustomer">Edit</a></li>
+                            <li><a asp-area="" asp-controller="Customer" asp-action="DeleteCustomer">Delete</a></li>
+                        </ul>
+                    </li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            Inventory Item
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Item" asp-action="AddItem">Create</a></li>
+                            <li><a asp-area="" asp-controller="Item" asp-action="UpdateItem">Edit</a></li>
+                            <li><a asp-area="" asp-controller="Item" asp-action="DeleteItem">Delete</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

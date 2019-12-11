@@ -1,0 +1,131 @@
+﻿@model AbcHardware.Models.Customer
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Customer</h4>
+<hr />
+@if (TempData.Keys.Contains("Success"))
+{
+    <div class="alert alert-success">@Html.Raw(@TempData["Success"])</div>
+}
+<div class="alert-danger">@Html.ValidationMessage("UpdateCustomer")</div>
+
+<form class="form-inline">
+    <div class="row">
+        <div class="col-md-5">
+            <input class="form-control" type="text" placeholder="Customer Name" name="searchString" />
+            <input class="btn btn-default" type="submit" value="Filter" />
+            @Html.ActionLink("Show All Customers", "UpdateCustomer", new { /* id=item.PrimaryKey */ })
+        </div>
+    </div>
+</form>
+
+<div class="table-scroll-y custom-scrollbar-Update">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Province)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostalCode)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Customers)
+            {
+                <tr>
+                    <td hidden ="hidden">
+                        @item.CustomerId
+                    </td>
+                    <td>
+                        @item.FullName
+                    </td>
+                    <td>
+                        @item.Address
+                    </td>
+                    <td>
+                        @item.City
+                    </td>
+                    <td>
+                        @item.Province
+                    </td>
+                    <td>
+                        @item.PostalCode
+                    </td>
+                    <td>
+                        @Html.ActionLink("Select", "UpdateCustomer", "Customer", new { id = item.CustomerId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (Model != null && Model.CustomerId > 0)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="UpdateCustomer">
+
+                <input type="hidden" asp-for="CustomerId"/>
+                <div class="form-group">
+                    <label asp-for="FirstName" class="control-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <div class="text-danger">@Html.ValidationMessage("FirstName")</div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <div class="text-danger">@Html.ValidationMessage("LastName")</div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <div class="text-danger">@Html.ValidationMessage("Address")</div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="City" class="control-label"></label>
+                    <input asp-for="City" class="form-control" />
+                    <div class="text-danger">@Html.ValidationMessage("City")</div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Province" class="control-label"></label>
+                    <input asp-for="Province" class="form-control" />
+                    <div class="text-danger">@Html.ValidationMessage("Province")</div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PostalCode" class="control-label"></label>
+                    <input asp-for="PostalCode" class="form-control" />
+                    <div class="text-danger">@Html.ValidationMessage("PostalCode")</div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
+
