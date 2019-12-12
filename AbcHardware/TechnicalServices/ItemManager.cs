@@ -79,7 +79,7 @@ namespace AbcHardware.TechnicalServices
                 connection.ConnectionString = _connectionString;
                 connection.Open();
 
-                command = new SqlCommand("GetItems", connection)
+                command = new SqlCommand("GetItemByItemCode", connection)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
@@ -101,7 +101,7 @@ namespace AbcHardware.TechnicalServices
 
                         item = new Item
                         {
-                            ItemCode = dataReader[dataReader.GetOrdinal("ItemCode")].ToString(),
+                            ItemCode = itemCode,
                             Description = dataReader[dataReader.GetOrdinal("Description")].ToString(),
                             UnitPrice = (decimal)dataReader[dataReader.GetOrdinal("UnitPrice")],
                             QuantityOnHand = (int)dataReader[dataReader.GetOrdinal("InventoryOnHand")],
@@ -271,7 +271,7 @@ namespace AbcHardware.TechnicalServices
             }
         }
 
-        public void DeleteItem(string itemCode, bool discontinued)
+        public void DeleteItem(string itemCode)
         {
             SqlConnection connection = new SqlConnection();
             SqlCommand command = null;
@@ -279,6 +279,9 @@ namespace AbcHardware.TechnicalServices
 
             try
             {
+                connection.ConnectionString = _connectionString;
+                connection.Open();
+
                 command = new SqlCommand("DeleteItem", connection)
                 {
                     CommandType = CommandType.StoredProcedure
@@ -290,15 +293,6 @@ namespace AbcHardware.TechnicalServices
                     SqlDbType = SqlDbType.VarChar,
                     Direction = ParameterDirection.Input,
                     SqlValue = itemCode
-                };
-                command.Parameters.Add(parameter);
-
-                parameter = new SqlParameter
-                {
-                    ParameterName = "@Description",
-                    SqlDbType = SqlDbType.VarChar,
-                    Direction = ParameterDirection.Input,
-                    SqlValue = discontinued
                 };
                 command.Parameters.Add(parameter);
 
@@ -314,6 +308,57 @@ namespace AbcHardware.TechnicalServices
                 command?.Dispose();
             }
         }
-       
+
+        public int CheckInventoryAmount(string itemCode)
+        {
+            SqlConnection connection = new SqlConnection();
+            SqlCommand command = null;
+            SqlParameter parameter;
+            SqlDataReader dataReader;
+            int quantityOnHand;
+
+            try
+            {
+                connection.ConnectionString = _connectionString;
+                connection.Open();
+
+                command = new SqlCommand("GetSaleItemQuantityByItemCode", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                parameter = new SqlParameter
+                {
+                    ParameterName = "@ItemCode",
+                    SqlDbType = SqlDbType.VarChar,
+                    Direction = ParameterDirection.Input,
+                    SqlValue = itemCode
+                };
+                command.Parameters.Add(parameter);
+
+                dataReader = command.ExecuteReader();
+
+                if (dataReader.HasRows)
+                {
+                    dataReader.Read();
+
+                    quantityOnHand = (int)dataReader[dataReader.GetOrdinal("InventoryOnHand")];
+
+                    return quantityOnHand;
+                }
+
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Check Sale Item Failed", ex);
+            }
+            finally
+            {
+                connection?.Close();
+                command?.Dispose();
+            }
+        }
+
     }
 }

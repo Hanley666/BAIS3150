@@ -7,17 +7,18 @@
 <h2>DeleteItem</h2>
 
 <h3>Item</h3>
-<div>
-    <form class="form-inline">
-        <div class="row">
-            <div class="col-md-5">
-                <input class="form-control" type="text" placeholder="Search" name="searchString" />
-                <input class="btn btn-default" type="submit" value="Filter" />
-                @Html.ActionLink("Show All Items", "UpdateItem", new { /* id=item.PrimaryKey */ })
-            </div>
-        </div>
-    </form>
 
+<form class="form-inline">
+    <div class="row">
+        <div class="col-md-5">
+            <input class="form-control" type="text" placeholder="Search" name="searchString" />
+            <input class="btn btn-default" type="submit" value="Filter" />
+            @Html.ActionLink("Show All Items", "UpdateItem", new { /* id=item.PrimaryKey */ })
+        </div>
+    </div>
+</form>
+
+<form asp-action="DeleteItemPost">
     <div class="table-scroll-y custom-scrollbar-Update">
         <table class="table">
             <thead>
@@ -61,7 +62,7 @@
                         </td>
                         <td>
                             <div class="form-group">
-                                <input type="button" value="Delete" class="btn-link" onclick="submitForm(@item.ItemCode)" />
+                                <input type="button" value="Delete" class="btn-link" onclick="submitForm('@item.ItemCode')" />
                             </div>
                         </td>
                     </tr>
@@ -70,7 +71,10 @@
         </table>
     </div>
     <input type="hidden" id="ItemCode" name="ItemCode" />
-</div>
+    <div>
+        <a href="~/Home/Index">Back to Home</a>
+    </div>
+</form>
 
 @section Scripts
 {

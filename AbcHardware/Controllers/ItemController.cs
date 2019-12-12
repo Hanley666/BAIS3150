@@ -55,7 +55,7 @@ namespace AbcHardware.Controllers
         {
             if (itemCode != null)
             {
-                ViewBag.Items = FilterItems(searchString);
+                //ViewBag.Items = FilterItems(searchString);
                 var item = GetItemByItemCode(itemCode);
                 return View(item);
             }
@@ -94,11 +94,9 @@ namespace AbcHardware.Controllers
         }
 
         // GET: Item/Delete/5
-        public ActionResult DeleteItem(string searchString)
+        public ActionResult DeleteItem(string searchString = null)
         {
-            var items = FilterItems(searchString);
-            items = items.Where(i => i.Discontinued == false).ToList();
-            ViewBag.Items = items;
+            FilterDiscontinuedItems(searchString);
 
             return View();
         }
@@ -106,27 +104,35 @@ namespace AbcHardware.Controllers
         // POST: Item/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteItem(string itemCode, bool discontinued)
+        public ActionResult DeleteItemPost(string itemCode)
         {
             try
             {
-                var errorsList = _itemService.DeleteItem(itemCode, discontinued);
+                var errorsList = _itemService.DeleteItem(itemCode);
                 if (errorsList == null)
                 {
-                    ViewBag.Customers = _itemService.GetItems();
+                    FilterDiscontinuedItems();
                     TempData["Success"] = "Item Delete Successful";
-                    return View();
+                    return View("DeleteItem");
                 }
                 foreach (var error in errorsList)
                 {
                     ModelState.AddModelError(error.Key, error.Value);
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 ModelState.AddModelError("DeleteItem", "Delete Item Failed");
             }
-            return View();
+
+            return View("DeleteItem");
+        }
+
+        private void FilterDiscontinuedItems(string searchString = null)
+        {
+            var items = FilterItems(searchString);
+            items = items.Where(i => i.Discontinued == false).ToList();
+            ViewBag.Items = items;
         }
 
         private Item GetItemByItemCode(string itemCode)

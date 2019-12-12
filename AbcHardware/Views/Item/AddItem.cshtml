@@ -12,7 +12,7 @@
 {
     <div class="alert alert-success">@Html.Raw(@TempData["Success"])</div>
 }
-<div class="alert-danger">@Html.ValidationMessage("CreateItem")</div>
+<div><span class="alert-danger">@Html.ValidationMessage("CreateItem")</span></div>
 
 <div class="row">
     <div class="col-md-4">
@@ -41,13 +41,7 @@
                 <input asp-for="QuantityOnHand" class="form-control" />
                 <div class="text-danger">@Html.ValidationMessage("QuantityOnHand")</div>
             </div>
-            @*<div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="Discontinued" /> @Html.DisplayNameFor(model => model.Discontinued)
-                    </label>
-                </div>
-            </div>*@
+
         <div class="form-group">
             <input type="submit" value="Create" class="btn btn-primary" />
             <a class="btn btn-default"href="~/Home/Index">Cancel</a>
@@ -56,7 +50,4 @@
     </div>
 </div>
 
-<div>
-    <a href="~/Home/Index">Back to Home</a>
-</div>
 

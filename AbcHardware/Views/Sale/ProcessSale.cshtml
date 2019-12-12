@@ -1,0 +1,295 @@
+﻿@model AbcHardware.Models.ABCSalePoco
+
+@{
+    ViewData["Title"] = "Process Sale";
+}
+
+<h2>Process Sale</h2>
+
+@if (TempData.Keys.Contains("Success"))
+{
+    <div class="alert alert-success">@Html.Raw(@TempData["Success"])</div>
+}
+<div><span class="alert-danger">@Html.ValidationMessage("CreateSale")</span></div>
+<form asp-action="ProcessSale">
+
+    <div class="form-inline col-md-10">
+        <div class="form-group">
+            <label for"CustomerSelect" class="control-label">Customer:</label>
+            <select asp-items="@ViewBag.Customers" asp-for="@Model.CustomerId"id="CustomerSelect" class="form-control"><option>Select Customer..</option></select>
+            <div class="text-danger">@Html.ValidationMessage("CustomerId")</div>
+        </div>
+        <div class="form-group">
+            <label for"SalesPerson" class="control-label">Sales Person:</label>
+            <input type="text" asp-for="@Model.SalePerson" id="SalesPerson" class="form-control" />
+            <div class="text-danger">@Html.ValidationMessage("SalesPerson")</div>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Item Code
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    In Stock
+                </th>
+                <th>
+                    Unit Price
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Item Total
+                </th>
+            </tr>
+        </thead>
+        <tbody id="items">
+            @for (var index = 0; index < Model.SaleItems.Count; index++)
+            {
+                <tr>
+                    <td>
+                        <input asp-for="SaleItems[index].ItemCode" type="text" class="form-control" placeholder="Item Code" onfocusout="validateForm(@index)" />
+                        <p id="ItemCodeValidation_@(index)_" class="text-danger"></p>
+                        <div class="text-danger">@Html.ValidationMessage("ItemCode")</div>
+
+                    </td>
+                    <td>
+                        <span id="Span_@(index)__Description">@Model.SaleItems[index].Description</span>
+                        <p id="DescriptionValidation_@(index)_" class="text-danger"></p>
+                        @Html.HiddenFor(modelItem => Model.SaleItems[index].Description)
+
+                    </td>
+                    <td>
+                        <span id="Span_@(index)__QuantityOnHand">@Model.SaleItems[index].QuantityOnHand</span>
+                        @Html.HiddenFor(modelItem => Model.SaleItems[index].QuantityOnHand)
+                    </td>
+                    <td>
+                        <span id="Span_@(index)__UnitPrice">@Model.SaleItems[index].UnitPriceDisplay</span>
+                        @Html.HiddenFor(modelItem => Model.SaleItems[index].UnitPrice)
+                    </td>
+                    <td>
+                        <input asp-for="SaleItems[index].Quantity" type="number" class="form-control" onfocusout="validateForm(@index)" />
+                        <p id="QuantityValidation_@(index)_" class="text-danger"></p>
+                        <div class="text-danger">@Html.ValidationMessage("Quantity")</div>
+                    </td>
+                    <td>
+                        <span id="Span_@(index)__ItemTotal">@(string.Format("{0:C}", Model.SaleItems[index].Quantity * Model.SaleItems[index].UnitPrice))</span>
+                        <input type="hidden" id="SaleItems_@(index)__ItemTotal" name="SaleItems[@(index)].ItemTotal"
+                               value=@(Model.SaleItems[index].Quantity * Model.SaleItems[index].UnitPrice) ) />
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <table class="col-md-4 col-md-offset-8">
+        <tr>
+            <td><b>SubTotal:</b></td>
+            <td><span id="SubTotal"></span></td>
+        </tr>
+        <tr>
+            <td><b>Gst:</b></td>
+            <td><span id="Gst"></span></td>
+        </tr>
+        <tr>
+            <td><b>SaleTotal:</b></td>
+            <td><span id="SaleTotal"></span></td>
+        </tr>
+    </table>
+    <div class="text-danger">@Html.ValidationMessage("SaleItem")</div>
+    <div class="form-group">
+        <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
+        <a class="btn btn-default" href="~/Home/Index">Cancel</a>
+    </div>
+
+</form>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var itemIndex;
+        var items;
+
+        $(document).ready(function () {
+            itemIndex = @Model.SaleItems.Count - 1;
+
+            items = @Html.Raw(Json.Serialize(ViewBag.Items));
+
+            if (!items) {
+                alert("No Items Available: Redirecting to Home Page");
+                window.Location.replace("~/Home/Index");
+            }
+        });
+
+        addItem = function () {
+            var items = $("#items");
+
+            itemIndex++;
+
+            var itemHtml =
+                "<tr>" +
+                "<td><input type='text' id='SaleItems_" + itemIndex + "__ItemCode' name='SaleItems[" + itemIndex + "].ItemCode'class='form-control' placeholder='Item Code' onfocusout='validateForm(" + itemIndex + ")' /><p id='DescriptionValidation_" + itemIndex + "_ class='text-danger'></p></td >" +
+                "<td><span id='Span_" + itemIndex + "__Description'></span><input type='hidden' id='SaleItems_" + itemIndex + "__Description' name='SaleItems[" + itemIndex + "].Description'/></td>" +
+                "<td><span id='Span_" + itemIndex + "__QuantityOnHand'></span><input type='hidden' id='SaleItems_" + itemIndex + "__QuantityOnHand' name='SaleItems[" + itemIndex + "].QuantityOnHand'/></td>" +
+                "<td><span id='Span_" + itemIndex + "__UnitPrice'></span><input type='hidden' id='SaleItems_" + itemIndex + "__UnitPrice' name='SaleItems[" + itemIndex + "].UnitPrice'/></td>" +
+                "<td><input type='number' id='SaleItems_" + itemIndex + "__Quantity' name='SaleItems[" + itemIndex + "].Quantity' class='form-control' onfocusout='validateForm(" + itemIndex + ")' /><p id='QuantityValidation_" + itemIndex + "_ class='text-danger'></p></td>" +
+                "<td><span id='Span_" + itemIndex + "__ItemTotal'></span><input type='hidden' id='SaleItems_" + itemIndex + "__ItemTotal' name='SaleItems[" + itemIndex + "].ItemTotal'/></td></tr>";
+
+            items.append(itemHtml);
+        }
+
+        itemCodeEntered = function (index) {
+            var itemCodeVaildationId = $("#ItemCodeValidation_" + index + "_");
+            var itemCodeField = $("#SaleItems_" + index + "__ItemCode");
+            var descriptionSpan = $("#Span_" + index + "__Description");
+            var descriptionField = $("#SaleItems_" + index + "__Description");
+            var quantityOnHandSpan = $("#Span_" + index + "__QuantityOnHand");
+            var quantityOnHandField = $("#SaleItems_" + index + "__QuantityOnHand");
+            var unitPriceSpan = $("#Span_" + index + "__UnitPrice");
+            var unitPriceField = $("#SaleItems_" + index + "__UnitPrice");
+
+            itemCodeVaildationId.text('');
+
+            var item = items.find(i => i.itemCode === itemCodeField.val());
+
+            if (item) {
+                descriptionSpan.text(item.description);
+                quantityOnHandSpan.text(item.quantityOnHand);
+
+                var unitPriceDisplay = currencyFormat(item.unitPrice);
+                unitPriceSpan.text(unitPriceDisplay);
+
+                descriptionField.val(item.description);
+                quantityOnHandField.val(item.quantityOnHand);
+                unitPriceField.val(item.unitPrice);
+
+                calculateItemTotal(index);
+                newItemCheck(index);
+            }
+            else {
+                itemCodeVaildationId.text("Item Code Invalid.");
+                return false;
+            }
+
+            return true;
+        }
+
+        itemQuantityEntered = function (index) {
+            var quantityVaildationId = $("#QuantityValidation_" + index + "_");
+            var quantityField = $("#SaleItems_" + index + "__Quantity");
+            var quantityOnHandField = $("#SaleItems_" + index + "__QuantityOnHand");
+            var itemTotalSpan = $("#Span_" + index + "__ItemTotal");
+            var itemTotalField = $("#SaleItems_" + index + "__ItemTotal");
+
+            quantityVaildationId.text('');
+            itemTotalSpan.text('');
+            itemTotalField.val('');
+            quantityOnHandField.val('');
+
+            if (quantityField.val()) {
+                if (+quantityField.val() < 0 || +quantityField.val() == 0) {
+                    quantityVaildationId.text("Quantity must be above 0.");
+                    return false;
+                }
+                if (quantityOnHandField.val()) {
+                    if (+quantityField.val() > +quantityOnHandField.val()) {
+                        quantityVaildationId.text("Quantity must not exceed Stock.");
+                        return false;
+                    }
+                }
+            }
+            else {
+                quantityVaildationId.text("Quantity is required.");
+                return false;
+            }
+
+            calculateItemTotal(index);
+            newItemCheck(index);
+
+            return true;
+        }
+
+
+        calculateItemTotal = function (index) {
+            var quantityField = $("#SaleItems_" + index + "__Quantity");
+            var unitPriceField = $("#SaleItems_" + index + "__UnitPrice");
+            var itemTotalSpan = $("#Span_" + index + "__ItemTotal");
+            var itemTotalField = $("#SaleItems_" + index + "__ItemTotal");
+
+            var quantity = quantityField.val();
+            var price = unitPriceField.val();
+
+            if (quantity && price) {
+                var total = +quantity * +price;
+
+                var totalDisplay = currencyFormat(total)
+
+                itemTotalSpan.text(totalDisplay);
+                itemTotalField.val(total);
+
+                CalculateSubTotal();
+            }
+        }
+
+        CalculateSubTotal = function () {
+            var subtotal = 0;
+            var gst = 0;
+            var total = 0;
+
+            for (var index = 0; index < itemIndex; index++) {
+                var itemTotal = $("#SaleItems_" + index + "__ItemTotal");
+
+                subtotal += +itemTotal.val();
+
+                $("#SubTotal").text(subtotal);
+            }
+
+            gst = subtotal * 0.05;
+            $("#Gst").text(gst);
+
+            total = subtotal + gst;
+            $("#SaleTotal").text(total);
+        }
+
+        newItemCheck = function (index) {
+            if (index !== itemIndex)
+                return;
+
+            var itemCodeField = $("#SaleItems_" + index + "__ItemCode");
+            var quantityField = $("#SaleItems_" + index + "__Quantity");
+
+            var itemCode = itemCodeField.val();
+            var itemQuantity = quantityField.val();
+
+            if (itemCode && itemQuantity)
+                addItem();
+        }
+
+        function currencyFormat(num) {
+            return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        }
+
+        validateForm = function (index) {
+            var submitButton = $("#submitButton");
+
+            var codeValid = itemCodeEntered(index);
+            var quantityValid = itemQuantityEntered(index);
+
+            if (codeValid && quantityValid) {
+                submitButton.attr("disabled", false);
+            }
+            else {
+                submitButton.attr("disabled", true);
+            }
+        }
+
+
+
+    </script>
+}

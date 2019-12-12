@@ -18,55 +18,59 @@
     </div>
 </form>
 
-<div class="table-scroll-y custom-scrollbar-Update">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ItemCode)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UnitPrice)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.QuantityOnHand)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Discontinued)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in ViewBag.Items)
-            {
+@if (Model == null)
+{
+
+    <div class="table-scroll-y custom-scrollbar-Update">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        @item.ItemCode
-                    </td>
-                    <td>
-                        @item.Description
-                    </td>
-                    <td>
-                        @item.UnitPrice
-                    </td>
-                    <td>
-                        @item.QuantityOnHand
-                    </td>
-                    <td>
-                        @item.Discontinued
-                    </td>
-                    <td>
-                        @Html.ActionLink("Select", "UpdateItem", "Item", new { id = item.ItemCode })
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ItemCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UnitPrice)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.QuantityOnHand)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Discontinued)
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Items)
+                {
+                    <tr>
+                        <td>
+                            @item.ItemCode
+                        </td>
+                        <td>
+                            @item.Description
+                        </td>
+                        <td>
+                            @item.UnitPriceDisplay
+                        </td>
+                        <td>
+                            @item.QuantityOnHand
+                        </td>
+                        <td>
+                            @item.Discontinued
+                        </td>
+                        <td>
+                            @Html.ActionLink("Select", "UpdateItem", "Item", new { itemCode = item.ItemCode })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
 
 @if (Model != null && Model.ItemCode != null)
 {
@@ -76,7 +80,7 @@
 
                 <div class="form-group">
                     <label asp-for="ItemCode" class="control-label"></label>
-                    <input asp-for="ItemCode" class="form-control" readonly="readonly"/>
+                    <input asp-for="ItemCode" class="form-control" readonly="readonly" />
 
                 </div>
                 <div class="form-group">
@@ -109,6 +113,6 @@
     </div>
 }
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a href="~/Home/Index">Back to Home</a>
 </div>
 

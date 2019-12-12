@@ -33,6 +33,7 @@ namespace AbcHardware
 
             services.AddTransient<CustomerService>();
             services.AddTransient<ItemService>();
+            services.AddTransient<ABCPOS>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

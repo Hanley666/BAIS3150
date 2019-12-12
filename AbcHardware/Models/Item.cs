@@ -12,11 +12,12 @@ namespace AbcHardware.Models
 
         public string Description { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:F2}", ApplyFormatInEditMode = true)]
         public decimal? UnitPrice { get; set; }
 
         public int? QuantityOnHand { get; set; }
 
         public bool Discontinued { get; set; }
+
+        public string UnitPriceDisplay => $"{UnitPrice:N2}";
     }
 }

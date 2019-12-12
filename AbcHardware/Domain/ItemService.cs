@@ -72,7 +72,7 @@ namespace AbcHardware.Domain
             }          
         }
 
-        public Dictionary<string,string> DeleteItem(string itemCode, bool discontinued)
+        public Dictionary<string,string> DeleteItem(string itemCode)
         {
             var errorMessages = new Dictionary<string, string>();
 
@@ -82,8 +82,7 @@ namespace AbcHardware.Domain
                 return errorMessages;
             else
             {
-                discontinued = true;
-                _itemManager.DeleteItem(itemCode, discontinued);
+                _itemManager.DeleteItem(itemCode);
                 return null;
             }
             
@@ -132,6 +131,11 @@ namespace AbcHardware.Domain
                 _itemManager.UpdateItem(item);
                 return null;
             }
+        }
+
+        public int CheckInventoryAmount(string itemCode)
+        {
+            return _itemManager.CheckInventoryAmount(itemCode);
         }
     }
 }

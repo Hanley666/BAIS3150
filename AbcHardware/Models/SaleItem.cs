@@ -9,10 +9,14 @@ namespace AbcHardware.Models
     {
         public string ItemCode { get; set; }
 
-        public int SaleNumber { get; set; }
+        public string Description { get; set; }
 
-        public int Quantity { get; set; }
+        public int QuantityOnHand { get; set; }
 
-        public decimal ItemTotal { get; set; }
+        public decimal UnitPrice { get; set; }
+
+        public int? Quantity { get; set; }
+
+        public string UnitPriceDisplay => $"{string.Format("{0:C}", (UnitPrice == 0 ? (decimal?)null : UnitPrice))}";
     }
 }
