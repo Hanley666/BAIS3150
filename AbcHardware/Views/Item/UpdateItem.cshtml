@@ -18,6 +18,12 @@
     </div>
 </form>
 
+@if (TempData.Keys.Contains("Success"))
+{
+    <div class="alert alert-success">@Html.Raw(@TempData["Success"])</div>
+}
+<div><span class="alert-danger">@Html.ValidationMessage("UpdateItem")</span></div>
+
 @if (Model == null)
 {
 
@@ -81,21 +87,25 @@
                 <div class="form-group">
                     <label asp-for="ItemCode" class="control-label"></label>
                     <input asp-for="ItemCode" class="form-control" readonly="readonly" />
+                    <div class="text-danger">@Html.ValidationMessage("ItemCode")</div>
 
                 </div>
                 <div class="form-group">
                     <label asp-for="Description" class="control-label"></label>
                     <input asp-for="Description" class="form-control" />
+                    <div class="text-danger">@Html.ValidationMessage("Description")</div>
 
                 </div>
                 <div class="form-group">
                     <label asp-for="UnitPrice" class="control-label"></label>
                     <input asp-for="UnitPrice" class="form-control" />
+                    <div class="text-danger">@Html.ValidationMessage("UnitPrice")</div>
 
                 </div>
                 <div class="form-group">
                     <label asp-for="QuantityOnHand" class="control-label"></label>
                     <input asp-for="QuantityOnHand" class="form-control" />
+                    <div class="text-danger">@Html.ValidationMessage("QuantityOnHand")</div>
 
                 </div>
                 <div class="form-group">

@@ -23,59 +23,61 @@
         </div>
     </div>
 </form>
-
-<div class="table-scroll-y custom-scrollbar-Update">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.FullName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Address)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.City)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Province)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PostalCode)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in ViewBag.Customers)
-            {
+@if (Model == null)
+{
+    <div class="table-scroll-y custom-scrollbar-Update">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td hidden ="hidden">
-                        @item.CustomerId
-                    </td>
-                    <td>
-                        @item.FullName
-                    </td>
-                    <td>
-                        @item.Address
-                    </td>
-                    <td>
-                        @item.City
-                    </td>
-                    <td>
-                        @item.Province
-                    </td>
-                    <td>
-                        @item.PostalCode
-                    </td>
-                    <td>
-                        @Html.ActionLink("Select", "UpdateCustomer", "Customer", new { id = item.CustomerId })
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.City)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Province)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PostalCode)
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Customers)
+                {
+                    <tr>
+                        <td hidden="hidden">
+                            @item.CustomerId
+                        </td>
+                        <td>
+                            @item.FullName
+                        </td>
+                        <td>
+                            @item.Address
+                        </td>
+                        <td>
+                            @item.City
+                        </td>
+                        <td>
+                            @item.Province
+                        </td>
+                        <td>
+                            @item.PostalCode
+                        </td>
+                        <td>
+                            @Html.ActionLink("Select", "UpdateCustomer", "Customer", new { id = item.CustomerId })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
 
 @if (Model != null && Model.CustomerId > 0)
 {
@@ -83,7 +85,7 @@
         <div class="col-md-4">
             <form asp-action="UpdateCustomer">
 
-                <input type="hidden" asp-for="CustomerId"/>
+                <input type="hidden" asp-for="CustomerId" />
                 <div class="form-group">
                     <label asp-for="FirstName" class="control-label"></label>
                     <input asp-for="FirstName" class="form-control" />

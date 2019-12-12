@@ -14,7 +14,7 @@ namespace AbcHardware.Domain
 
         public CustomerService(IConfiguration config)
         {
-            _customerManager = new CustomerManager(config.GetConnectionString("Home"));
+            _customerManager = new CustomerManager(config.GetConnectionString("School"));
         }
 
         public List<Customer> GetCustomers()

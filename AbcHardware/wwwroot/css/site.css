@@ -18,11 +18,11 @@ body {
 
 .custom-scrollbar-Delete {
     position: relative;
-    height: 500px;
+    height: 600px;
     overflow: auto;
 }
 .custom-scrollbar-Update {
     position: relative;
-    height: 300px;
+    height: 600px;
     overflow: auto;
 }

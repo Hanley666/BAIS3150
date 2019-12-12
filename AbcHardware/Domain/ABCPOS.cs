@@ -13,7 +13,7 @@ namespace AbcHardware.Domain
         private readonly Sales _SalesManager;
         public ABCPOS(IConfiguration config)
         {
-            _SalesManager = new Sales(config.GetConnectionString("Home"));
+            _SalesManager = new Sales(config.GetConnectionString("School"));
         }
 
         public int ProcessSale(ABCSalePoco sale)

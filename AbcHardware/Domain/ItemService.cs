@@ -14,7 +14,7 @@ namespace AbcHardware.Domain
         private readonly ItemManager _itemManager;
         public ItemService(IConfiguration config)
         {
-            _itemManager = new ItemManager(config.GetConnectionString("Home"));
+            _itemManager = new ItemManager(config.GetConnectionString("School"));
         }
 
         public List<Item> GetItems()
@@ -92,7 +92,7 @@ namespace AbcHardware.Domain
         {
             var errorMessages = new Dictionary<string, string>();
 
-            if (string.IsNullOrEmpty(item.ItemCode))
+            if (!string.IsNullOrEmpty(item.ItemCode))
             {
                 Regex regex = new Regex(@"^([A-Z][0-9]{5})$");
                 Match match = regex.Match(item.ItemCode.Trim());
@@ -102,7 +102,7 @@ namespace AbcHardware.Domain
             else
                 errorMessages.Add("ItemCode", "Item Code is Required.");
 
-            if (String.IsNullOrEmpty(item.UnitPrice.ToString()))
+            if (item.UnitPrice != null)
             {
                 Regex regex = new Regex("^\\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$");
                 Match match = regex.Match(item.UnitPrice.ToString());

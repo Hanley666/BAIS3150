@@ -36,7 +36,7 @@ namespace AbcHardware.Controllers
                 if (errorsList == null)
                 {
                     TempData["Success"] = "Item Create Successful";
-                    return View();
+                    return Redirect(nameof(AddItem));
                 }
                 foreach (var error in errorsList)
                 {
