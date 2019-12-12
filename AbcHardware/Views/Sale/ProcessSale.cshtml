@@ -84,9 +84,6 @@
                         <input type="hidden" id="SaleItems_@(index)__ItemTotal" name="SaleItems[@(index)].ItemTotal"
                                value=@(Model.SaleItems[index].Quantity * Model.SaleItems[index].UnitPrice) ) />
                     </td>
-                    <td>
-                        <input type="button" value="Add Item" class="btn-link" onclick="addItem()" />
-                    </td>
                 </tr>
             }
 
@@ -138,7 +135,7 @@
 
             var itemHtml =
                 "<tr>" +
-                "<td><input type='text' id='SaleItems_" + itemIndex + "__ItemCode' name='SaleItems[" + itemIndex + "].ItemCode'class='form-control' placeholder='Item Code' onfocusout='validateForm(" + itemIndex + ")' /><p id='DescriptionValidation_" + itemIndex + "_ class='text-danger'></p></td >" +
+                "<td><input type='text' id='SaleItems_" + itemIndex + "__ItemCode' name='SaleItems[" + itemIndex + "].ItemCode'class='form-control' placeholder='Item Code' onfocusout='validateForm(" + itemIndex + ")' /><p id='ItemCodeValidation_" + itemIndex + "_ class='text-danger'></p></td >" +
                 "<td><span id='Span_" + itemIndex + "__Description'></span><input type='hidden' id='SaleItems_" + itemIndex + "__Description' name='SaleItems[" + itemIndex + "].Description'/></td>" +
                 "<td><span id='Span_" + itemIndex + "__QuantityOnHand'></span><input type='hidden' id='SaleItems_" + itemIndex + "__QuantityOnHand' name='SaleItems[" + itemIndex + "].QuantityOnHand'/></td>" +
                 "<td><span id='Span_" + itemIndex + "__UnitPrice'></span><input type='hidden' id='SaleItems_" + itemIndex + "__UnitPrice' name='SaleItems[" + itemIndex + "].UnitPrice'/></td>" +
@@ -250,15 +247,17 @@
                 var itemTotal = $("#SaleItems_" + index + "__ItemTotal");
 
                 subtotal += +itemTotal.val();
-
-                $("#SubTotal").text(subtotal);
+                var subTotalDisplay = currencyFormat(subtotal);
+                $("#SubTotal").text(subTotalDisplay);
             }
 
             gst = subtotal * 0.05;
-            $("#Gst").text(gst);
+            var gstDisplay = currencyFormat(gst);
+            $("#Gst").text(gstDisplay);
 
             total = subtotal + gst;
-            $("#SaleTotal").text(total);
+            var saleTotalDisplay = currencyFormat(total);
+            $("#SaleTotal").text(saleTotalDisplay);
         }
 
         newItemCheck = function (index) {
